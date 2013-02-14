@@ -1,10 +1,9 @@
 from flare.display import Stage, Bitmap
 import math
 
-HEIGHT = 64 # Really 96, but the lower third overlaps
-WIDTH = 64
+SQUARE = 64
 
-stage = Stage(9*WIDTH, 8*HEIGHT + 32)
+stage = Stage(9*SQUARE, 8*SQUARE + 32)
 stage.color = 'white'
 
 def add_block(name, x, y, a, r):
@@ -17,24 +16,24 @@ def add_block(name, x, y, a, r):
 	block.rotation = r
 
 def spuzzle1():
-	square = 7
-	for y in range(square):
-		offset = y*WIDTH + WIDTH
-		add_block("grass1", y*WIDTH, y*HEIGHT, 1, 0)
-		for x in range(square-y):
-			add_block("stone1", x*WIDTH + offset, y*HEIGHT, 1, 0)
+	size = 8
+	for y in range(size):
+		offset = y*SQUARE + SQUARE
+		add_block("grass1", y*SQUARE, y*SQUARE, 1, 0)
+		for x in range(size-y-1):
+			add_block("stone1", x*SQUARE + offset, y*SQUARE, 1, 0)
 		for x in range(y):
-			add_block("sand1", x*WIDTH, y*HEIGHT, 1, 0)
+			add_block("sand1", x*SQUARE, y*SQUARE, 1, 0)
 
 def spuzzle2():
 	for y in range(4):
 		for x in range(9):
-			add_block("grass1", x*WIDTH, y*2*HEIGHT, math.fabs(-4+x)/4, 0)
+			add_block("grass1", x*SQUARE, y*2*SQUARE, math.fabs(-4+x)/4, 0)
 
 def spuzzle3():
 	for y in range(8):
 		for x in range(9):
-			add_block("stone1", x*WIDTH, y*HEIGHT, y/7.0, (x/8.0)*math.pi)	
+			add_block("stone1", x*SQUARE, y*SQUARE, y/7.0, (x/8.0)*math.pi)	
 
 spuzzle2()
 stage.run()
